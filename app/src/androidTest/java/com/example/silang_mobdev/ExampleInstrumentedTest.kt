@@ -1,4 +1,4 @@
-package com.dicoding.silang
+package com.example.silang_mobdev
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.dicoding.silang", appContext.packageName)
+        assertEquals("com.example.silang_mobdev", appContext.packageName)
     }
 }

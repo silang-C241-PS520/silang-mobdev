@@ -1,4 +1,4 @@
-package com.dicoding.silang
+package com.example.silang_mobdev
 
 import org.junit.Test
 
