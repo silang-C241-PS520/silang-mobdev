@@ -11,4 +11,6 @@
     <string name="btn_to_signup">Daftar</string>
     <string name="move_to_login">Sudah Punya Akun?</string>
     <string name="btn_to_login">Masuk</string>
+    <string name="name">Nama\n</string>
+    <string name="signup">Daftar</string>
 </resources>
