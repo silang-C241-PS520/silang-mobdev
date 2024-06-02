@@ -44,10 +44,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.fabTranslate.setOnClickListener {
-            val intent = Intent(requireContext(), TranslateActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onDestroyView() {
