@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.silang_mobdev.ViewModelFactory
 import com.example.silang_mobdev.databinding.FragmentHistoryBinding
+import com.example.silang_mobdev.ui.home.HomeViewModel
 
 class HistoryFragment : Fragment() {
 
@@ -22,8 +25,8 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val historyViewModel =
-            ViewModelProvider(this).get(HistoryViewModel::class.java)
+        val historyViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(requireContext())).get(HistoryViewModel::class.java)
+
 
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
