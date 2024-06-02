@@ -4,10 +4,11 @@
     <string name="title_history">History</string>
     <string name="title_notifications">Notifications</string>
     <string name="fab_translate">fab</string>
-    <string name="rotation">aa\n</string>
-    <string name="accelerator">bb\n</string>
-    <string name="dashboard">cc</string>
-    <string name="content_description_dashboard">ccc</string>
-    <string name="content_description_rotation">aaa</string>
-    <string name="content_description_accelerator">ccc</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Masuk</string>
+    <string name="move_to_signup">Belum Punya Akun?</string>
+    <string name="btn_to_signup">Daftar</string>
+    <string name="move_to_login">Sudah Punya Akun?</string>
+    <string name="btn_to_login">Masuk</string>
 </resources>
