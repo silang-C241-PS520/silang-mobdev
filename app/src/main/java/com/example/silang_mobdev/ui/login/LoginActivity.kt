@@ -18,6 +18,7 @@ import com.example.silang_mobdev.ViewModelFactory
 import com.example.silang_mobdev.data.api.retrofit.ApiConfig
 import com.example.silang_mobdev.data.pref.UserModel
 import com.example.silang_mobdev.databinding.ActivityLoginBinding
+import com.example.silang_mobdev.ui.singup.SingupActivity
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -65,6 +66,10 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 showToast("Please enter a valid email and password.")
             }
+        }
+
+        binding.tvToSignup.setOnClickListener {
+            startActivity(Intent(this, SingupActivity::class.java))
         }
 
     }
