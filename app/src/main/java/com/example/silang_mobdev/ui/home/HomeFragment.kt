@@ -26,12 +26,16 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         val homeViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(requireContext())).get(HomeViewModel::class.java)
 
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        binding.logout.setOnClickListener {
+            homeViewModel.logout()
+        }
 
         return root
 

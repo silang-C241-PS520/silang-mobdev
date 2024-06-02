@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.silang_mobdev.data.Repository
 import com.example.silang_mobdev.data.di.Injection
+import com.example.silang_mobdev.ui.history.HistoryViewModel
 import com.example.silang_mobdev.ui.home.HomeViewModel
 import com.example.silang_mobdev.ui.login.LoginViewModel
 
@@ -22,6 +23,9 @@ class ViewModelFactory(private val repository: Repository) :
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
