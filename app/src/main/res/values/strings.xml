@@ -7,10 +7,21 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Masuk</string>
+    <string name="logout">Keluar</string>
     <string name="move_to_signup">Belum Punya Akun?</string>
     <string name="btn_to_signup">Daftar</string>
     <string name="move_to_login">Sudah Punya Akun?</string>
     <string name="btn_to_login">Masuk</string>
-    <string name="name">Nama\n</string>
+    <string name="name">Nama</string>
     <string name="signup">Daftar</string>
+    <string name="more_options">More</string>
+    <string name="lets_translate">Lets translate</string>
+    <string name="bridge_use_together">Bridge use together</string>
+    <string name="camera">Camera</string>
+    <string name="sample_subtitle">Sample Subtitle</string>
+    <string name="book">Book</string>
+    <string name="gallery">Gallery</string>
+    <string name="dummy_text">Lorem ipsum dolor sit amet...</string>
+    <string name="history_title">History</string>
+    <string name="see_all_title">See all</string>
 </resources>
