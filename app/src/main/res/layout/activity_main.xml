@@ -69,6 +69,8 @@
 
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/camera"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -127,6 +129,10 @@
 
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/galleryCardView"
+        android:clickable="true"
+        android:focusable="true"
+        android:checkable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -185,6 +191,8 @@
 
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/dictionary"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

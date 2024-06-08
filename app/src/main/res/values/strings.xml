@@ -24,4 +24,11 @@
     <string name="dummy_text">Lorem ipsum dolor sit amet...</string>
     <string name="history_title">History</string>
     <string name="see_all_title">See all</string>
+    <string name="backpressed">backbutton</string>
+    <string name="backbutton">back button</string>
+    <string name="translate_title">Translate</string>
+    <string name="video_title">Video 1 aaads21dvvsdf....</string>
+    <string name="video_duration">00:57</string>
+    <string name="video_size">8MB</string>
+    <string name="translate_video">Translate video</string>
 </resources>
