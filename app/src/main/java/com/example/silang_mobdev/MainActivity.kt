@@ -1,24 +1,24 @@
 package com.example.silang_mobdev
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.silang_mobdev.databinding.ActivityMainBinding
 import com.example.silang_mobdev.ui.history.HistoryActivity
 import com.example.silang_mobdev.ui.login.LoginActivity
-import com.google.android.material.appbar.MaterialToolbar
+import com.example.silang_mobdev.ui.translate.TranslateActivity
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityMainBinding
+    private var currentVideoUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +39,32 @@ class MainActivity : AppCompatActivity() {
             viewModel.logout()
         }
 
+        binding.galleryCardView.setOnClickListener {
+            startGallery()
+        }
+
         binding.seeAllHistory.setOnClickListener {
             val intent = Intent(this@MainActivity, HistoryActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
     }
+
+    private fun startGallery() {
+        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))
+    }
+
+    private val launcherGallery = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            currentVideoUri = uri
+            val intent = Intent(this@MainActivity, TranslateActivity::class.java)
+            intent.putExtra("videoUri", uri.toString())
+            startActivity(intent)
+        } else {
+            Log.d("Video Picker", "No media selected")
+        }
+    }
+
 }

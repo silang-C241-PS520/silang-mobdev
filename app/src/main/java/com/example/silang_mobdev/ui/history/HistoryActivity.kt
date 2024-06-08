@@ -17,7 +17,12 @@ class HistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.topAppBar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
+
     @Deprecated("Use super.onBackPressed() instead", level = DeprecationLevel.WARNING)
     override fun onBackPressed() {
         // Override back button behavior to navigate back to the previous activity
