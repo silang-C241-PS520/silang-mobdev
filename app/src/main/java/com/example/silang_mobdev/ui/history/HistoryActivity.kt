@@ -23,10 +23,4 @@ class HistoryActivity : AppCompatActivity() {
         }
     }
 
-    @Deprecated("Use super.onBackPressed() instead", level = DeprecationLevel.WARNING)
-    override fun onBackPressed() {
-        // Override back button behavior to navigate back to the previous activity
-        super.onBackPressed()
-    }
-
 }
