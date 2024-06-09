@@ -74,7 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:backgroundTint="@color/grey"
+        android:backgroundTint="@color/md_theme_inversePrimary_mediumContrast"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
         app:strokeWidth="0dp">
@@ -136,7 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:backgroundTint="@color/grey"
+        android:backgroundTint="@color/md_theme_errorContainer"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
         app:strokeWidth="0dp">
@@ -196,7 +196,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:backgroundTint="@color/grey"
+        android:backgroundTint="@color/md_theme_tertiaryContainer"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
         app:strokeWidth="0dp">
