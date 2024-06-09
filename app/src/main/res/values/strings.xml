@@ -21,7 +21,7 @@
     <string name="sample_subtitle">Sample Subtitle</string>
     <string name="book">Book</string>
     <string name="gallery">Gallery</string>
-    <string name="dummy_text">Lorem ipsum dolor sit amet...</string>
+    <string name="dummy_text">Lorem ipsum dolor sit amet&#8230;</string>
     <string name="history_title">History</string>
     <string name="see_all_title">See all</string>
     <string name="backpressed">backbutton</string>
@@ -31,4 +31,8 @@
     <string name="video_duration">00:57</string>
     <string name="video_size">8MB</string>
     <string name="translate_video">Translate video</string>
+    <string name="todo">TODO</string>
+    <string name="dummy_text_medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="result_time_stamp">11:23</string>
+    <string name="result_title">Result</string>
 </resources>
