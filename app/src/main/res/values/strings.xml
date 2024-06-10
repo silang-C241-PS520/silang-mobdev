@@ -35,4 +35,9 @@
     <string name="dummy_text_medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="result_time_stamp">11:23</string>
     <string name="result_title">Result</string>
+    <string name="profile">Profile</string>
+    <string name="profile_email">youremail@gmail.com</string>
+    <string name="profile_name">Your Name</string>
+    <string name="profile_title">My Profile</string>
+    <string name="hi_your_name">Hi, [Your Name]</string>
 </resources>

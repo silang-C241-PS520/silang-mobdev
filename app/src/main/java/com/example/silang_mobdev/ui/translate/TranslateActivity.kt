@@ -27,6 +27,10 @@ class TranslateActivity : AppCompatActivity() {
         binding = ActivityTranslateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.topAppBar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
         // Retrieve the video URI passed from MainActivity
         videoUri = Uri.parse(intent.getStringExtra("videoUri") ?: "")
 
