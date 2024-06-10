@@ -2,16 +2,20 @@ package com.example.silang_mobdev
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.silang_mobdev.databinding.ActivityMainBinding
 import com.example.silang_mobdev.ui.history.HistoryActivity
 import com.example.silang_mobdev.ui.login.LoginActivity
 import com.example.silang_mobdev.ui.translate.TranslateActivity
+import com.example.silang_mobdev.ui.profile.ProfileActivity
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
@@ -35,8 +39,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.exitIcon.setOnClickListener {
-            viewModel.logout()
+        binding.profileIcon.setOnClickListener { v: View ->
+            val intent = Intent(this@MainActivity, ProfileActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
 
         binding.galleryCardView.setOnClickListener {

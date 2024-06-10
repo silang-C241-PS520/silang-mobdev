@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.silang_mobdev.data.Repository
 import com.example.silang_mobdev.data.di.Injection
 import com.example.silang_mobdev.ui.login.LoginViewModel
+import com.example.silang_mobdev.ui.profile.ProfileViewModel
 
 class ViewModelFactory(private val repository: Repository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -13,11 +14,14 @@ class ViewModelFactory(private val repository: Repository) :
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
+            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
+                LoginViewModel(repository) as T
+            }
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(repository) as T
             }
-            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                LoginViewModel(repository) as T
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
