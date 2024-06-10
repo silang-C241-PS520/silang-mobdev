@@ -57,7 +57,7 @@
 
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/camera"
+            android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -75,7 +75,6 @@
 
 
                 <ImageView
-                    android:id="@+id/profile_icon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="10dp"
@@ -85,7 +84,6 @@
                     tools:src="@drawable/baseline_exit_to_app_24" />
 
                 <TextView
-                    android:id="@+id/logout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
