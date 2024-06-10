@@ -12,17 +12,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
 
-        <ImageButton
-            android:id="@+id/profile_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
-            android:background="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_account_circle_24"
-            tools:src="@drawable/ic_account_circle_24"
-            app:tint="@color/colorTertiaryDark"/>
-
         <TextView
             android:id="@+id/hello_text"
             android:layout_width="wrap_content"
@@ -32,12 +21,30 @@
             android:textStyle="bold"
             android:textColor="@color/textPrimary"/>
 
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/profile_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_account_circle_24"
+            tools:src="@drawable/ic_account_circle_24"
+            app:tint="@color/colorAccent"/>
+
+
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="15dp"
         android:orientation="vertical">
 
         <TextView
@@ -67,9 +74,6 @@
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"
-        android:backgroundTint="@color/colorTertiaryLight"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="1dp"
         app:strokeWidth="0dp">
 
         <LinearLayout
@@ -132,9 +136,6 @@
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"
-        android:backgroundTint="@color/colorTertiaryLight"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="1dp"
         app:strokeWidth="0dp">
 
         <LinearLayout
@@ -192,7 +193,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginHorizontal="10dp"
         android:orientation="horizontal">
 
@@ -213,7 +215,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/see_all_title"
             android:textColor="@color/colorPrimary"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             tools:text="See all" />
 
@@ -223,9 +225,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
-        android:backgroundTint="@android:color/white"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="1dp"
         app:strokeWidth="0dp">
 
         <LinearLayout

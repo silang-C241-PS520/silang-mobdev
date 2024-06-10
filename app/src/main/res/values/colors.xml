@@ -21,7 +21,7 @@
     <color name="textSecondary">#B8B8B8</color> <!-- Medium Gray -->
     <color name="textTertiary">#FFFFFF</color> <!-- White -->
 
-    <color name="backgroundPrimary">#FFFFFF</color> <!-- White -->
+    <color name="backgroundPrimary">#F0F1F6</color> <!-- White -->
     <color name="backgroundSecondary">#F5F5F5</color> <!-- Light Gray -->
     <color name="backgroundTertiary">#E0E0E0</color> <!-- Medium Gray -->
 

@@ -1,8 +1,38 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Silangmobdev" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryLight</item>
 
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryDark</item>
+
+        <!-- Accent color -->
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/backgroundPrimary</item>
+        <item name="colorOnPrimary">@color/textPrimary</item>
+        <item name="colorOnSecondary">@color/textSecondary</item>
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <item name="android:textColorSecondary">@color/textSecondary</item>
+        <item name="android:textColorTertiary">@color/textTertiary</item>
+
+        <!-- Divider color -->
+        <item name="dividerColor">@color/divider</item>
+    </style>
+
+    <style name="AppTheme.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/backgroundSecondary</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="cardElevation">0dp</item>
     </style>
 
     <style name="Theme.Silangmobdev" parent="Base.Theme.Silangmobdev" />
+
 </resources>

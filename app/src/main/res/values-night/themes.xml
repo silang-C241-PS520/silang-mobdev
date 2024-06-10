@@ -1,8 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Silangmobdev" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Base application dark theme. -->
+    <style name="Base.Theme.Silangmobdev.Dark" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/colorPrimaryDarkMode</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkDarkMode</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryLightDarkMode</item>
 
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/colorSecondaryDarkMode</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryDarkDarkMode</item>
+
+        <!-- Accent color -->
+        <item name="colorAccent">@color/colorAccentDarkMode</item>
+
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/backgroundPrimaryDarkMode</item>
+        <item name="colorOnPrimary">@color/textPrimaryDarkMode</item>
+        <item name="colorOnSecondary">@color/textSecondaryDarkMode</item>
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/textPrimaryDarkMode</item>
+        <item name="android:textColorSecondary">@color/textSecondaryDarkMode</item>
+        <item name="android:textColorTertiary">@color/textTertiaryDarkMode</item>
+
+        <!-- Divider color -->
+        <item name="dividerColor">@color/dividerDarkMode</item>
     </style>
 
-    <style name="Theme.Silangmobdev" parent="Base.Theme.Silangmobdev" />
+    <style name="Theme.Silangmobdev.Dark" parent="Base.Theme.Silangmobdev.Dark" />
 </resources>
