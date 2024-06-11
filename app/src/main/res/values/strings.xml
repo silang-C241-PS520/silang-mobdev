@@ -40,4 +40,6 @@
     <string name="profile_name">Your Name</string>
     <string name="profile_title">My Profile</string>
     <string name="hi_your_name">Hi, [Your Name]</string>
+    <string name="confirmpassword">Confirm Password</string>
+    <string name="username">Username</string>
 </resources>

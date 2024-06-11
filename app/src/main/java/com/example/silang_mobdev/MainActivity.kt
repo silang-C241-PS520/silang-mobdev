@@ -10,7 +10,6 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.silang_mobdev.databinding.ActivityMainBinding
 import com.example.silang_mobdev.ui.history.HistoryActivity
 import com.example.silang_mobdev.ui.login.LoginActivity
@@ -39,15 +38,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.profileIcon.setOnClickListener { v: View ->
+        binding.galleryCardView.setOnClickListener {
+            startGallery()
+        }
+
+        binding.profileIcon.setOnClickListener {
             val intent = Intent(this@MainActivity, ProfileActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
-        binding.galleryCardView.setOnClickListener {
-            startGallery()
-        }
 
         binding.seeAllHistory.setOnClickListener {
             val intent = Intent(this@MainActivity, HistoryActivity::class.java)

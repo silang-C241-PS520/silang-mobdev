@@ -1,14 +1,6 @@
 package com.example.silang_mobdev.data.api.response
 
 data class LoginResponse(
-    val loginResult: LoginResult? = null,
-    val error: Boolean? = null,
-    val message: String? = null
+    val access_token: String? = null,
+    val token_type: String? = null
 )
-
-data class LoginResult(
-    val name: String? = null,
-    val userId: String? = null,
-    val token: String? = null
-)
-

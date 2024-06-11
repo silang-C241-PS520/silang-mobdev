@@ -3,7 +3,7 @@ package com.example.silang_mobdev.ui.login
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
-import android.os.Build
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,7 +19,6 @@ import com.example.silang_mobdev.data.api.retrofit.ApiConfig
 import com.example.silang_mobdev.data.pref.UserModel
 import com.example.silang_mobdev.databinding.ActivityLoginBinding
 import com.example.silang_mobdev.ui.singup.SingupActivity
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -35,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val emailEditText = binding.edLoginEmail
+        val emailEditText = binding.edLoginUsername
         val passwordEditText = binding.edLoginPassword
 
         supportActionBar?.hide()
@@ -58,11 +57,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.loginButton.setOnClickListener {
-            val email = binding.edLoginEmail.text.toString().trim()
+            val username = binding.edLoginUsername.text.toString().trim()
             val password = binding.edLoginPassword.text.toString().trim()
 
-            if (isValidEmail(email) && isPasswordValid(password)) {
-                performLogin(email, password)
+            if (isValidUsername(username) && isPasswordValid(password)) {
+                performLogin(username, password)
             } else {
                 showToast("Please enter a valid email and password.")
             }
@@ -74,31 +73,27 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun performLogin(email: String, password: String) {
+    private fun performLogin(username: String, password: String) {
         lifecycleScope.launch {
             showLoading(true)
             try {
                 val apiService = ApiConfig.getApiService()
-                val loginResponse = apiService.login(email, password)
-
-                if (!loginResponse.error!!) {
-                    val token = loginResponse.loginResult?.token
-                    if (token != null) {
-                        viewModel.saveSession(UserModel(email, token))
-                        navigateToMainActivity()
-                    } else {
-                        showLoading(false)
-                        showToast("Failed to retrieve token. Please try again.")
-                    }
+                val loginResponse = apiService.login1(username, password)
+                val token = loginResponse.access_token
+                if (token != null) {
+                    viewModel.saveSession(UserModel(username, token))
+                    showToast("Login successful!")
+                    navigateToMainActivity()
                 } else {
                     showLoading(false)
-                    showToast(loginResponse.message ?: "Login failed. Please try again.")
+                    showToast("Failed to retrieve token. Please try again.")
                 }
             } catch (e: HttpException) {
                 showLoading(false)
+                showToast("HTTP error: ${e.message()}")
             } catch (e: Exception) {
                 showLoading(false)
-                handleGenericException(e)
+                showToast("An error occurred: ${e.message}")
             }
         }
     }
@@ -111,19 +106,18 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateToMainActivity() {
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
     }
 
     private fun setLoginButtonEnable() {
-        val email = binding.edLoginEmail.text.toString().trim()
+        val email = binding.edLoginUsername.text.toString().trim()
         val password = binding.edLoginPassword.text.toString().trim()
-        binding.loginButton.isEnabled = isValidEmail(email) && isPasswordValid(password)
+        binding.loginButton.isEnabled = isValidUsername(email) && isPasswordValid(password)
     }
 
-    private fun isValidEmail(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    private fun isValidUsername(username: String): Boolean {
+        return username.length >= 8
     }
 
     private fun isPasswordValid(password: String): Boolean {
@@ -133,9 +127,9 @@ class LoginActivity : AppCompatActivity() {
     private fun playAnimation() {
 
         val emailTextView =
-            ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
+            ObjectAnimator.ofFloat(binding.usernameTextView, View.ALPHA, 1f).setDuration(100)
         val emailEditTextLayout =
-            ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(100)
+            ObjectAnimator.ofFloat(binding.usernameEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val passwordTextView =
             ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
         val passwordEditTextLayout =

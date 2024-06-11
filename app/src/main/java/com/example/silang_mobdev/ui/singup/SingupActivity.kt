@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.silang_mobdev.R
+import com.example.silang_mobdev.data.api.request.RegisterRequest
 import com.example.silang_mobdev.data.api.response.RegisterResponse
 import com.example.silang_mobdev.data.api.retrofit.ApiConfig
 import com.example.silang_mobdev.databinding.ActivitySingupBinding
@@ -37,8 +38,8 @@ class SingupActivity : AppCompatActivity() {
 
     private fun setupTextWatchers() {
         binding.edRegisterName.addTextChangedListener(textWatcher)
-        binding.edRegisterEmail.addTextChangedListener(textWatcher)
         binding.edRegisterPassword.addTextChangedListener(textWatcher)
+        binding.edRegisterConfirmPassword.addTextChangedListener(textWatcher)
     }
 
     private val textWatcher = object : TextWatcher {
@@ -51,14 +52,14 @@ class SingupActivity : AppCompatActivity() {
     }
 
     private fun setSignupButtonEnable() {
-        val name = binding.edRegisterName.text.toString().trim()
-        val email = binding.edRegisterEmail.text.toString().trim()
+        val username = binding.edRegisterName.text.toString().trim()
         val password = binding.edRegisterPassword.text.toString().trim()
+        val confirmPassword = binding.edRegisterConfirmPassword.text.toString().trim()
         binding.signupButton.isEnabled =
-            isValidName(name) && isValidEmail(email) && isPasswordValid(password)
+            isValidUsername(username) && isPasswordValid(password) && isConfirmPasswordValid(password, confirmPassword)
     }
 
-    private fun isValidName(name: String): Boolean {
+    private fun isValidUsername(name: String): Boolean {
         return name.length >= 8
     }
 
@@ -70,17 +71,21 @@ class SingupActivity : AppCompatActivity() {
         return password.length >= 8
     }
 
+    private fun isConfirmPasswordValid(password: String, confirmPassword: String): Boolean {
+        return password == confirmPassword
+    }
+
 
     private fun setupAction() {
         binding.signupButton.setOnClickListener {
             val name = binding.edRegisterName.text.toString().trim()
-            val email = binding.edRegisterEmail.text.toString().trim()
             val password = binding.edRegisterPassword.text.toString().trim()
+            val confirmPassword = binding.edRegisterConfirmPassword.text.toString().trim()
 
-            if (isValidName(name) && isValidEmail(email) && isPasswordValid(password)) {
-                registerUser(name, email, password)
+            if (isValidUsername(name) && isPasswordValid(password) && isConfirmPasswordValid(password, confirmPassword)) {
+                registerUser(name, password, confirmPassword)
             } else {
-                showToast("Please enter a valid name, email, and password.")
+                showToast("Please enter a valid username and password.")
             }
         }
 
@@ -89,33 +94,25 @@ class SingupActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(name: String, email: String, password: String) {
+    private fun registerUser(username: String, password: String, confirm_password: String) {
         lifecycleScope.launch {
             showLoading(true)
             try {
                 val apiService = ApiConfig.getApiService()
-                val registerResponse = apiService.register(name, email, password)
-
-                if (!registerResponse.error!!) {
+                val registerResponse = apiService.register1(RegisterRequest(username, password, confirm_password))
+                if (registerResponse.username != null) {
                     navigateToLoginActivity()
                 } else {
                     showLoading(false)
-                    showToast(registerResponse.message ?: "Registration failed. Please try again.")
+                    showToast("Registration failed. Please try again.")
                 }
             } catch (e: HttpException) {
                 showLoading(false)
-                handleHttpException(e)
             } catch (e: Exception) {
                 showLoading(false)
                 handleGenericException(e)
             }
         }
-    }
-
-    private fun handleHttpException(exception: HttpException) {
-        val errorBody = exception.response()?.errorBody()?.string()
-        val errorResponse = Gson().fromJson(errorBody, RegisterResponse::class.java)
-        showToast(errorResponse.message ?: "An error occurred. Please try again.")
     }
 
     private fun handleGenericException(exception: Exception) {
@@ -137,13 +134,13 @@ class SingupActivity : AppCompatActivity() {
         val nameEditTextLayout =
             ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val emailTextView =
-            ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
-        val emailEditTextLayout =
-            ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val passwordTextView =
             ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
-        val passwordEditTextLayout =
+        val emailEditTextLayout =
             ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val passwordTextView =
+            ObjectAnimator.ofFloat(binding.confirmPasswordTextView, View.ALPHA, 1f).setDuration(100)
+        val passwordEditTextLayout =
+            ObjectAnimator.ofFloat(binding.confirmPasswordEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val signup = ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 1f).setDuration(100)
 
 

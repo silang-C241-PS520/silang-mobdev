@@ -26,6 +26,7 @@ class Repository private constructor(
 
     suspend fun logout() {
         userPreference.logout()
+        apiService.logout()
     }
 
     companion object {
