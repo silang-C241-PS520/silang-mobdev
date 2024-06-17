@@ -31,7 +31,7 @@
             android:textColor="@color/textPrimary"/>
 
         <TextView
-            android:id="@+id/item_subtitle"
+            android:id="@+id/item_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="20:32"
@@ -46,5 +46,5 @@
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_more_vert_24"
         android:contentDescription="@string/more_options"
-        android:tint="@color/textSecondary"/>
+        app:tint="@color/textSecondary" />
 </LinearLayout>

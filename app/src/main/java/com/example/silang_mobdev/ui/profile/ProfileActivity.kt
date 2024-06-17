@@ -1,12 +1,12 @@
 package com.example.silang_mobdev.ui.profile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.silang_mobdev.MainViewModel
 import com.example.silang_mobdev.R
 import com.example.silang_mobdev.ViewModelFactory
 import com.example.silang_mobdev.databinding.ActivityProfileBinding
@@ -22,6 +22,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel.getCurrentUser()
 
         binding.topAppBar.setNavigationOnClickListener {
             onBackPressed()
@@ -30,5 +31,16 @@ class ProfileActivity : AppCompatActivity() {
         binding.logout.setOnClickListener {
             viewModel.logout()
         }
+
+        observeMe()
     }
+
+    private fun observeMe() {
+        viewModel.meLiveData.observe(this) { meResponse ->
+            Log.d("MainActivity", "Received story response: $meResponse")
+            binding.tvProfileName.text = meResponse.username
+        }
+    }
+
+
 }

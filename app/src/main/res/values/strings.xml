@@ -39,7 +39,11 @@
     <string name="profile_email">youremail@gmail.com</string>
     <string name="profile_name">Your Name</string>
     <string name="profile_title">My Profile</string>
-    <string name="hi_your_name">Hi, [Your Name]</string>
+    <string name="hi_your_name">Hello</string>
     <string name="confirmpassword">Confirm Password</string>
     <string name="username">Username</string>
+    <string name="empty_video_warning">Empty Video Warning\n</string>
+    <string name="upload_success">Upload Success\n</string>
+    <string name="upload_failed">Upload Failed</string>
+    <string name="your_name">my_name</string>
 </resources>

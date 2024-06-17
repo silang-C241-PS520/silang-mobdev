@@ -5,19 +5,26 @@ import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.ui.AppBarConfiguration
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.silang_mobdev.R
-import com.example.silang_mobdev.databinding.ActivityMainBinding
+import com.example.silang_mobdev.ViewModelFactory
 import com.example.silang_mobdev.databinding.ActivityTranslateBinding
+import com.example.silang_mobdev.utils.uriToFile
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 class TranslateActivity : AppCompatActivity() {
+
+    private val viewModel by viewModels<TranslateViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     private lateinit var binding: ActivityTranslateBinding
     private lateinit var videoUri: Uri
@@ -36,8 +43,9 @@ class TranslateActivity : AppCompatActivity() {
 
         // Get video metadata and display it
         displayVideoMetadata()
-
         displayThumbnail()
+        uploadVideo()
+        videoResult()
     }
 
     @SuppressLint("DefaultLocale")
@@ -48,7 +56,8 @@ class TranslateActivity : AppCompatActivity() {
         // Get video duration in milliseconds
         val durationString = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
         val duration = durationString?.toLongOrNull() ?: 0
-        val durationFormatted = String.format("%02d:%02d:%02d",
+        val durationFormatted = String.format(
+            "%02d:%02d:%02d",
             duration / 3600000,
             (duration % 3600000) / 60000,
             (duration % 60000) / 1000
@@ -58,7 +67,9 @@ class TranslateActivity : AppCompatActivity() {
         val videoName = videoUri.lastPathSegment ?: ""
 
         // Get video size
-        val videoSizeBytes = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_BITRATE)?.toLongOrNull() ?: 0
+        val videoSizeBytes =
+            retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_BITRATE)?.toLongOrNull()
+                ?: 0
         val videoSizeMb = videoSizeBytes / (1024 * 1024)
 
         binding.videoNameTextView.text = videoName
@@ -82,5 +93,45 @@ class TranslateActivity : AppCompatActivity() {
             .into(binding.videoThumbnailImageView)
 
         retriever.release()
+    }
+
+    // Function to upload the video
+    private fun uploadVideo() {
+        videoUri.let { uri ->
+
+            val videoFile = uriToFile(uri, this)
+
+            val requestVideoFile = videoFile.asRequestBody("video/mp4".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "file",
+                videoFile.name,
+                requestVideoFile
+            )
+
+            showLoading(true)
+            viewModel.uploadVideo(multipartBody)
+        }
+    }
+
+    private fun videoResult() {
+        viewModel.uploadVideoResult.observe(this) { result ->
+            showLoading(false)
+            if (result != null) {
+                binding.resultCardView.visibility = View.VISIBLE
+                binding.textResult.text = result.translation_text
+                showToast(getString(R.string.upload_success))
+            } else {
+                binding.resultCardView.visibility = View.GONE
+                showToast(getString(R.string.upload_failed))
+            }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

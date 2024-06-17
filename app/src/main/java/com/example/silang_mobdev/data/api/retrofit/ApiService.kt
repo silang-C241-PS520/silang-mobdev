@@ -1,15 +1,21 @@
 package com.example.silang_mobdev.data.api.retrofit
 
 
-
-import com.example.silang_mobdev.data.api.request.LoginRequest
 import com.example.silang_mobdev.data.api.request.RegisterRequest
 import com.example.silang_mobdev.data.api.response.LoginResponse
+import com.example.silang_mobdev.data.api.response.MeResponse
 import com.example.silang_mobdev.data.api.response.RegisterResponse
+import com.example.silang_mobdev.data.api.response.TranslationResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface ApiService {
 
@@ -28,4 +34,16 @@ interface ApiService {
 
     @POST("/api/v1/auth/logout")
     suspend fun logout()
+
+    @GET("/api/v1/auth/me")
+    suspend fun me(): MeResponse
+
+    @Multipart
+    @POST("/api/v1/translations/")
+    suspend fun uploadVideo(
+        @Part file: MultipartBody.Part,
+    ): TranslationResponse
+
+    @GET("/api/v1/translations/me")
+    suspend fun currentUserHistory(): List<TranslationResponse>
 }

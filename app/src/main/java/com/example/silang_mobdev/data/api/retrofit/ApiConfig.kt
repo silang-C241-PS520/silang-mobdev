@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class ApiConfig {
     companion object {
@@ -14,8 +15,11 @@ class ApiConfig {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
-            val clientBuilder = OkHttpClient.Builder().addInterceptor(loggingInterceptor)
-
+            val clientBuilder = OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .connectTimeout(30, TimeUnit.SECONDS) // Increase connect timeout
+                .writeTimeout(30, TimeUnit.SECONDS) // Increase write timeout
+                .readTimeout(30, TimeUnit.SECONDS) // Increase read timeout
             if (token != null) {
                 val authInterceptor = Interceptor { chain ->
                     val req = chain.request()
