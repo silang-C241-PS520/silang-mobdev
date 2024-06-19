@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.cameraCardView.setOnClickListener {
-            startCamera()
+            showToast("Camera Feature is Under Maintenance")
         }
 
         binding.profileIcon.setOnClickListener {
