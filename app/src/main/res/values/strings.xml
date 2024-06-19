@@ -32,7 +32,7 @@
     <string name="video_size">8MB</string>
     <string name="translate_video">Translate video</string>
     <string name="todo">TODO</string>
-    <string name="dummy_text_medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="dummy_text_medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</string>
     <string name="result_time_stamp">11:23</string>
     <string name="result_title">Result</string>
     <string name="profile">Profile</string>
@@ -46,4 +46,12 @@
     <string name="upload_success">Translation Success</string>
     <string name="upload_failed">Translation Failed</string>
     <string name="your_name">my_name</string>
+    <string name="translate">Translate</string>
+    <string name="video_too_large">Max Size is 3 MB</string>
+    <string name="camera_subtitle">Capture video with camera</string>
+    <string name="gallery_subtitle">Select video from camera</string>
+    <string name="strip">-</string>
+    <string name="enter_feedback">Give us ur opinion</string>
+    <string name="submit_feedback">Submit feedback</string>
+    <string name="feedback_title">Feedback</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.silang_mobdev.data.Repository
+import com.example.silang_mobdev.data.api.request.FeedbackRequest
 import com.example.silang_mobdev.data.api.response.TranslationResponse
 import com.example.silang_mobdev.data.api.retrofit.ApiConfig
 import kotlinx.coroutines.flow.first
@@ -22,6 +23,9 @@ class TranslateViewModel(private val repository: Repository) : ViewModel() {
     val uploadError: LiveData<Boolean>
         get() = _uploadError
 
+    private val _feedbackSubmitted = MutableLiveData<Boolean>()
+    val feedbackSubmitted: LiveData<Boolean>
+        get() = _feedbackSubmitted
 
     fun uploadVideo(video: MultipartBody.Part) {
         viewModelScope.launch {
@@ -31,6 +35,19 @@ class TranslateViewModel(private val repository: Repository) : ViewModel() {
                 _uploadVideoResult.postValue(response)
             } catch (e: Exception) {
                 _uploadError.postValue(true) // Notify activity about the upload error
+            }
+        }
+    }
+
+    fun submitFeedback(resultId: Int?, feedback: String) {
+        viewModelScope.launch {
+            try {
+                val user = repository.getSession().first()
+                val apiService = ApiConfig.getApiService(user.token)
+                val response = apiService.updateFeedback(resultId, FeedbackRequest(feedback))
+                _feedbackSubmitted.postValue(true)
+            } catch (e: Exception) {
+                _uploadError.postValue(true) // Notify the UI about the feedback submission error
             }
         }
     }

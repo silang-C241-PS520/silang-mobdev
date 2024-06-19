@@ -3,30 +3,24 @@ package com.example.silang_mobdev
 import HistoryAdapter
 import MainViewModel
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.silang_mobdev.data.api.retrofit.ApiConfig
-import com.example.silang_mobdev.data.pref.UserModel
 import com.example.silang_mobdev.databinding.ActivityMainBinding
 import com.example.silang_mobdev.ui.history.HistoryActivity
 import com.example.silang_mobdev.ui.login.LoginActivity
 import com.example.silang_mobdev.ui.translate.TranslateActivity
 import com.example.silang_mobdev.ui.profile.ProfileActivity
 import com.example.silang_mobdev.utils.getVideoUri
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
@@ -51,6 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.rv_history)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.suppressLayout(true)
         recyclerView.adapter = historyAdapter
 
 
@@ -69,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             showToast("Camera Feature is Under Maintenance")
         }
 
-        binding.profileIcon.setOnClickListener {
+        binding.profile.setOnClickListener {
             val intent = Intent(this@MainActivity, ProfileActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
@@ -108,15 +103,30 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) {
-            currentVideoUri = uri
-            val intent = Intent(this@MainActivity, TranslateActivity::class.java)
-            intent.putExtra("videoUri", uri.toString())
-            startActivity(intent)
+            if (getFileSize(uri) <= 3 * 1024 * 1024) { // 5 MB in bytes
+                currentVideoUri = uri
+                val intent = Intent(this@MainActivity, TranslateActivity::class.java)
+                intent.putExtra("videoUri", uri.toString())
+                startActivity(intent)
+            } else {
+                Log.d("Video Picker", "Selected video exceeds 5 MB")
+                Toast.makeText(this, R.string.video_too_large, Toast.LENGTH_SHORT).show()
+            }
         } else {
             Log.d("Video Picker", "No media selected")
         }
     }
 
+    private fun getFileSize(uri: Uri): Long {
+        var fileSize: Long = 0
+        val cursor: Cursor? = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            val sizeIndex = it.getColumnIndex(OpenableColumns.SIZE)
+            it.moveToFirst()
+            fileSize = it.getLong(sizeIndex)
+        }
+        return fileSize
+    }
     private fun startCamera() {
         currentVideoUri = getVideoUri(this)
         Log.d("Messages", "$currentVideoUri")

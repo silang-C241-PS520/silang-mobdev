@@ -27,11 +27,11 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.logout.setOnClickListener {
-            viewModel.logout()  // Call the logout function
+            viewModel.logout()
+            observeLogout()// Call the logout function
         }
 
         observeMe()
-        observeLogout()
     }
 
     private fun observeMe() {

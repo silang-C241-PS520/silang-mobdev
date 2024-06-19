@@ -1,6 +1,7 @@
 package com.example.silang_mobdev.data
 
 
+import android.util.Log
 import com.example.silang_mobdev.data.api.response.TranslationResponse
 import com.example.silang_mobdev.data.api.retrofit.ApiConfig
 import com.example.silang_mobdev.data.api.retrofit.ApiService
@@ -39,9 +40,20 @@ class Repository private constructor(
     }
 
     suspend fun logout() {
-        userPreference.logout()
-        apiService.logout()
+        try {
+            val response = apiService.logout()
+            if (response.isSuccessful) {
+                userPreference.logout()
+            } else {
+                // Handle the case where the API call is not successful
+                Log.e("Logout", "API logout failed: ${response.errorBody()?.string()}")
+            }
+        } catch (e: Exception) {
+            // Handle the exception, log it, or notify the user
+            Log.e("Logout", "Logout failed", e)
+        }
     }
+
 
     companion object {
         @Volatile
