@@ -53,9 +53,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = historyAdapter
 
-        viewModel.historyLiveData.observe(this) { historyList ->
-            historyAdapter.submitList(historyList)
-        }
 
         viewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
@@ -98,7 +95,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeCurrentHistory() {
-        viewModel.historyLiveData.observe(this) { historyResponse ->
+        viewModel.historyLiveData.observe(this) { historyList ->
+            historyAdapter.submitList(historyList)
         }
     }
 

@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             } catch (e: HttpException) {
                 showLoading(false)
-                showToast("HTTP error: ${e.message()}")
+                showToast("Something went wrong. Please try again.")
             } catch (e: Exception) {
                 showLoading(false)
                 showToast("An error occurred: ${e.message}")

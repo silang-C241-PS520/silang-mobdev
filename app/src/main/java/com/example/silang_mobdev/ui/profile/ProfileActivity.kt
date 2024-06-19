@@ -1,16 +1,14 @@
 package com.example.silang_mobdev.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.silang_mobdev.R
 import com.example.silang_mobdev.ViewModelFactory
 import com.example.silang_mobdev.databinding.ActivityProfileBinding
-import com.example.silang_mobdev.databinding.ActivityTranslateBinding
+import com.example.silang_mobdev.ui.login.LoginActivity
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -29,18 +27,26 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.logout.setOnClickListener {
-            viewModel.logout()
+            viewModel.logout()  // Call the logout function
         }
 
         observeMe()
+        observeLogout()
     }
 
     private fun observeMe() {
         viewModel.meLiveData.observe(this) { meResponse ->
-            Log.d("MainActivity", "Received story response: $meResponse")
+            Log.d("ProfileActivity", "Received user response: $meResponse")
             binding.tvProfileName.text = meResponse.username
         }
     }
 
-
+    private fun observeLogout() {
+        viewModel.isLoggedOut.observe(this) { isLoggedOut ->
+            if (isLoggedOut) {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+        }
+    }
 }

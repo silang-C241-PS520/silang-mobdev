@@ -23,19 +23,31 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val historyLiveData: LiveData<List<TranslationResponse>>
         get() = _historyLiveData
 
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
     fun getCurrentUser() {
         viewModelScope.launch {
             try {
                 val user = repository.getSession().first()
-                val apiService = ApiConfig.getApiService(user.token)
-                val meResponse = apiService.me()
-                _meLiveData.postValue(meResponse)
+                Log.e("error", "$user.token")
+                if (user.token.isNotEmpty()) {
+                    val apiService = ApiConfig.getApiService(user.token)
+                    Log.e("ERROR TOKEN", "$user")
+                    val meResponse = apiService.me()
+                    _meLiveData.postValue(meResponse)
+                } else {
+                    _errorMessage.postValue("Token not found, please login again.")
+                }
             } catch (e: HttpException) {
                 // Handle HTTP exceptions
                 Log.e("MainViewModel", "HttpException: ${e.message()}")
+                _errorMessage.postValue("HttpException: ${e.message()}")
             } catch (e: Exception) {
                 // Handle other exceptions
                 Log.e("MainViewModel", "Exception: ${e.message}")
+                _errorMessage.postValue("Exception: ${e.message}")
             }
         }
     }
@@ -44,17 +56,22 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val user = repository.getSession().first()
-                val apiService = ApiConfig.getApiService(user.token)
-                val historyResponse = apiService.currentUserHistory()
-                // Take only the 5 most recent items
-                val recentHistory = historyResponse.take(8)
-                _historyLiveData.postValue(recentHistory)
+                if (user.token.isNotEmpty()) {
+                    val apiService = ApiConfig.getApiService(user.token)
+                    val historyResponse = apiService.currentUserHistory()
+                    val recentHistory = historyResponse.take(6)
+                    _historyLiveData.postValue(recentHistory)
+                } else {
+                    _errorMessage.postValue("Token not found, please login again.")
+                }
             } catch (e: HttpException) {
                 // Handle HTTP exceptions
                 Log.e("MainViewModel", "HttpException: ${e.message()}")
+                _errorMessage.postValue("HttpException: ${e.message()}")
             } catch (e: Exception) {
                 // Handle other exceptions
                 Log.e("MainViewModel", "Exception: ${e.message}")
+                _errorMessage.postValue("Exception: ${e.message}")
             }
         }
     }
@@ -63,3 +80,4 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         return repository.getSession().asLiveData()
     }
 }
+

@@ -17,6 +17,9 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
     val meLiveData: LiveData<MeResponse>
         get() = _meLiveData
 
+    private val _isLoggedOut = MutableLiveData<Boolean>()
+    val isLoggedOut: LiveData<Boolean> = _isLoggedOut
+
     fun getCurrentUser() {
         viewModelScope.launch {
             try {
@@ -26,16 +29,22 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
                 _meLiveData.postValue(meResponse)
             } catch (e: HttpException) {
                 // Handle HTTP exceptions
-                Log.e("MainViewModel", "HttpException: ${e.message()}")
+                Log.e("ProfileViewModel", "HttpException: ${e.message()}")
             } catch (e: Exception) {
                 // Handle other exceptions
-                Log.e("MainViewModel", "Exception: ${e.message}")
+                Log.e("ProfileViewModel", "Exception: ${e.message}")
             }
         }
     }
+
     fun logout() {
         viewModelScope.launch {
-            repository.logout()
+            try {
+                repository.logout()
+                _isLoggedOut.postValue(true)
+            } catch (e: Exception) {
+                Log.e("ProfileViewModel", "Exception during logout: ${e.message}")
+            }
         }
     }
 }

@@ -13,22 +13,13 @@
         <!-- Accent color -->
         <item name="colorAccent">@color/colorAccent</item>
 
-        <!-- Background colors -->
-        <item name="android:colorBackground">@color/backgroundPrimary</item>
-        <item name="colorOnPrimary">@color/textPrimary</item>
-        <item name="colorOnSecondary">@color/textSecondary</item>
-
-        <!-- Text colors -->
-        <item name="android:textColorPrimary">@color/textPrimary</item>
-        <item name="android:textColorSecondary">@color/textSecondary</item>
-        <item name="android:textColorTertiary">@color/textTertiary</item>
 
         <!-- Divider color -->
         <item name="dividerColor">@color/divider</item>
     </style>
 
     <style name="AppTheme.CardView" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/backgroundSecondary</item>
+        <item name="strokeWidth">0dp</item>
         <item name="cardCornerRadius">5dp</item>
         <item name="cardElevation">0dp</item>
     </style>

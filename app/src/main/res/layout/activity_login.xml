@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/android:colorBackground"
     tools:context=".ui.login.LoginActivity">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -16,15 +17,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
+        app:srcCompat="@drawable/regis" />
+
     <TextView
         android:id="@+id/usernameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:alpha="0"
         android:text="@string/username"
-        android:textColor="@color/textPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal"
         tools:alpha="100" />
@@ -59,7 +70,6 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:text="@string/password"
-        android:textColor="@color/textPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameEditTextLayout" />
 
@@ -97,7 +107,6 @@
         android:alpha="0"
         android:enabled="false"
         android:text="@string/login"
-        android:textColor="@color/textTertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
@@ -123,8 +132,7 @@
             android:focusable="true"
             android:gravity="center"
             android:minHeight="48dp"
-            android:text="@string/move_to_signup"
-            android:textColor="@color/textSecondary"/>
+            android:text="@string/move_to_signup" />
 
         <TextView
             android:id="@+id/tv_toSignup"
@@ -134,8 +142,7 @@
             android:gravity="center"
             android:text="@string/btn_to_signup"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/textSecondary"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.example.silang_mobdev.ui.translate
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.net.Uri
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.silang_mobdev.MainActivity
 import com.example.silang_mobdev.R
 import com.example.silang_mobdev.ViewModelFactory
 import com.example.silang_mobdev.databinding.ActivityTranslateBinding
@@ -45,7 +47,7 @@ class TranslateActivity : AppCompatActivity() {
         displayVideoMetadata()
         displayThumbnail()
         uploadVideo()
-        videoResult()
+        observeUploadResult()
     }
 
     @SuppressLint("DefaultLocale")
@@ -98,22 +100,20 @@ class TranslateActivity : AppCompatActivity() {
     // Function to upload the video
     private fun uploadVideo() {
         videoUri.let { uri ->
-
             val videoFile = uriToFile(uri, this)
-
             val requestVideoFile = videoFile.asRequestBody("video/mp4".toMediaType())
             val multipartBody = MultipartBody.Part.createFormData(
                 "file",
                 videoFile.name,
                 requestVideoFile
             )
-
             showLoading(true)
             viewModel.uploadVideo(multipartBody)
         }
     }
 
-    private fun videoResult() {
+
+    private fun observeUploadResult() {
         viewModel.uploadVideoResult.observe(this) { result ->
             showLoading(false)
             if (result != null) {
@@ -122,6 +122,13 @@ class TranslateActivity : AppCompatActivity() {
                 showToast(getString(R.string.upload_success))
             } else {
                 binding.resultCardView.visibility = View.GONE
+                showToast(getString(R.string.upload_failed))
+            }
+        }
+
+        viewModel.uploadError.observe(this) { isError ->
+            if (isError) {
+                showLoading(false)
                 showToast(getString(R.string.upload_failed))
             }
         }
@@ -134,4 +141,5 @@ class TranslateActivity : AppCompatActivity() {
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
 }

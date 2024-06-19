@@ -94,14 +94,14 @@
 
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/AppTheme.CardView"
         android:id="@+id/cameraCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:checkable="true"
         android:clickable="true"
-        android:focusable="true"
-        app:strokeWidth="0dp">
+        android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,8 +110,8 @@
             android:padding="15dp">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:src="@drawable/baseline_camera_alt_24"
                 app:tint="@color/colorPrimary"
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/camera"
                     android:textColor="@color/textPrimary"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     tools:text="Camera" />
 
                 <TextView
@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sample_subtitle"
                     android:textColor="@color/textSecondary"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     tools:text="Sample Subtitle" />
 
             </LinearLayout>
@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/baseline_arrow_forward_ios_24"
-                app:tint="@color/textTertiary"
+                app:tint="@color/colorTertiaryDark"
                 tools:src="@drawable/baseline_arrow_forward_ios_24" />
 
         </LinearLayout>
@@ -156,14 +156,14 @@
 
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/AppTheme.CardView"
         android:id="@+id/galleryCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:checkable="true"
         android:clickable="true"
-        android:focusable="true"
-        app:strokeWidth="0dp">
+        android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -172,8 +172,8 @@
             android:padding="15dp">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:src="@drawable/baseline_insert_photo_24"
                 app:tint="@color/colorPrimary"
@@ -192,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/gallery"
                     android:textColor="@color/textPrimary"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     tools:text="Gallery" />
 
                 <TextView
@@ -200,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sample_subtitle"
                     android:textColor="@color/textSecondary"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     tools:text="Sample Subtitle" />
 
             </LinearLayout>
@@ -210,7 +210,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/baseline_arrow_forward_ios_24"
-                app:tint="@color/textTertiary"
+                app:tint="@color/colorTertiaryDark"
                 tools:src="@drawable/baseline_arrow_forward_ios_24" />
 
         </LinearLayout>
@@ -249,10 +249,10 @@
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/AppTheme.CardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:strokeWidth="0dp">
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"

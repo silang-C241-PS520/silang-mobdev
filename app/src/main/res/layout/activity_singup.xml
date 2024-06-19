@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.singup.SingupActivity">
+    tools:context=".ui.singup.SingupActivity"
+    android:background="?attr/android:colorBackground">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressIndicator"
@@ -14,7 +15,20 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:indicatorColor="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
+        app:srcCompat="@drawable/regis" />
 
     <TextView
         android:id="@+id/nameTextView"
@@ -24,7 +38,7 @@
         android:layout_marginTop="8dp"
         android:alpha="0"
         android:text="@string/username"
-        android:textColor="@color/textPrimary"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal"
         tools:alpha="100" />
@@ -48,7 +62,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/textPrimary"
+            android:backgroundTint="@color/colorPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -59,7 +75,7 @@
         android:layout_marginTop="16dp"
         android:alpha="0"
         android:text="@string/password"
-        android:textColor="@color/textPrimary"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameEditTextLayout"
         tools:alpha="100" />
@@ -84,7 +100,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/textPrimary"
+            android:backgroundTint="@color/colorPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -95,7 +113,7 @@
         android:layout_marginTop="8dp"
         android:alpha="0"
         android:text="@string/confirmpassword"
-        android:textColor="@color/textPrimary"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
         tools:alpha="100" />
@@ -120,7 +138,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/textPrimary"
+            android:backgroundTint="@color/colorPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -133,7 +153,7 @@
         android:alpha="0"
         android:enabled="false"
         android:text="@string/signup"
-        android:textColor="@color/textTertiary"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmPasswordEditTextLayout"
@@ -160,7 +180,7 @@
             android:gravity="center"
             android:minHeight="48dp"
             android:text="@string/move_to_login"
-            android:textColor="@color/textSecondary"/>
+            android:textColor="?attr/colorOnSecondary"/>
 
         <TextView
             android:id="@+id/tv_toLogin"
@@ -171,7 +191,7 @@
             android:text="@string/btn_to_login"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="@color/textSecondary"/>
+            android:textColor="?attr/colorOnSecondary"/>
 
     </LinearLayout>
 
@@ -185,7 +205,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guidelineHorizontal2"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:orientation="horizontal"

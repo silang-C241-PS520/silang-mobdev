@@ -18,15 +18,19 @@ class TranslateViewModel(private val repository: Repository) : ViewModel() {
     val uploadVideoResult: LiveData<TranslationResponse>
         get() = _uploadVideoResult
 
+    private val _uploadError = MutableLiveData<Boolean>()
+    val uploadError: LiveData<Boolean>
+        get() = _uploadError
+
+
     fun uploadVideo(video: MultipartBody.Part) {
         viewModelScope.launch {
             try {
                 // Assuming you have a repository function to handle the video upload
-                val user = repository.getSession().first()
-                val response = repository.uploadVideo(video, user.token)
+                val response = repository.uploadVideo(video)
                 _uploadVideoResult.postValue(response)
             } catch (e: Exception) {
-                ///
+                _uploadError.postValue(true) // Notify activity about the upload error
             }
         }
     }
