@@ -113,17 +113,17 @@ class SingupActivity : AppCompatActivity() {
                     showToast("Registration failed. Please try again.")
                 }
             } catch (e: HttpException) {
+                if (e.code() == 409) {
+                    showToast("Username already exists.")
+                } else {
+                    showToast("Something went wrong. Please try again.")
+                }
                 showLoading(false)
             } catch (e: Exception) {
                 showLoading(false)
-                handleGenericException(e)
+                showToast("An error occurred: ${e.message}")
             }
         }
-    }
-
-    private fun handleGenericException(exception: Exception) {
-        showToast("An error occurred. Please try again.")
-        exception.printStackTrace()
     }
 
     private fun navigateToLoginActivity() {

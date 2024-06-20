@@ -91,8 +91,12 @@ class LoginActivity : AppCompatActivity() {
                     showToast("Failed to retrieve token. Please try again.")
                 }
             } catch (e: HttpException) {
+                if (e.code() == 401) {
+                    showToast("Incorrect username or password.")
+                } else {
+                    showToast("Something went wrong. Please try again.")
+                }
                 showLoading(false)
-                showToast("Something went wrong. Please try again.")
             } catch (e: Exception) {
                 showLoading(false)
                 showToast("An error occurred: ${e.message}")
