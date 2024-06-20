@@ -15,6 +15,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.silang_mobdev.databinding.ActivityMainBinding
 import com.example.silang_mobdev.ui.history.HistoryActivity
 import com.example.silang_mobdev.ui.login.LoginActivity
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     }
     private lateinit var binding: ActivityMainBinding
     private lateinit var historyAdapter: HistoryAdapter
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var currentVideoUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +48,10 @@ class MainActivity : AppCompatActivity() {
         recyclerView.suppressLayout(true)
         recyclerView.adapter = historyAdapter
 
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout)
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getRecentUserHistory()
+        }
 
         viewModel.getSession().observe(this) { user ->
             observeMe()
@@ -73,7 +79,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         binding.seeAllHistory.setOnClickListener {
             val intent = Intent(this@MainActivity, HistoryActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -81,7 +86,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 
     private fun observeMe() {
         viewModel.meLiveData.observe(this) { meResponse ->
@@ -93,6 +97,7 @@ class MainActivity : AppCompatActivity() {
     private fun observeCurrentHistory() {
         viewModel.historyLiveData.observe(this) { historyList ->
             historyAdapter.submitList(historyList)
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -128,6 +133,7 @@ class MainActivity : AppCompatActivity() {
         }
         return fileSize
     }
+
     private fun startCamera() {
         currentVideoUri = getVideoUri(this)
         Log.d("Messages", "$currentVideoUri")
@@ -147,5 +153,4 @@ class MainActivity : AppCompatActivity() {
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
 }
