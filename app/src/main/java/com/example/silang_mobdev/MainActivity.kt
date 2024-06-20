@@ -35,8 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.getCurrentUser()
-        viewModel.getRecentUserHistory()
 
         supportActionBar?.hide()
 
@@ -50,7 +48,12 @@ class MainActivity : AppCompatActivity() {
 
 
         viewModel.getSession().observe(this) { user ->
+            observeMe()
+            observeCurrentHistory()
             if (!user.isLogin) {
+                viewModel.errorMessage.observe(this) {
+                    showToast(it)
+                }
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
@@ -77,8 +80,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        observeMe()
-        observeCurrentHistory()
     }
 
 

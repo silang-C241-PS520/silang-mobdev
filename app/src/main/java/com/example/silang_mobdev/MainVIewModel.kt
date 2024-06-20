@@ -31,6 +31,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val user = repository.getSession().first()
+                Log.e("USER", "$user")
                 if (user.token.isNotEmpty()) {
                     val apiService = ApiConfig.getApiService(user.token)
                     val meResponse = apiService.me()
@@ -39,8 +40,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     _errorMessage.postValue("Token not found, please login again.")
                 }
             } catch (e: HttpException) {
-                // Handle HTTP exceptions
-                _errorMessage.postValue("HttpException: ${e.message()}")
+                if (e.code() == 401) {
+                    // Handle unauthorized error by logging out
+                    repository.logout()
+                    _errorMessage.postValue("Unauthorized access. Logging out.")
+                } else {
+                    // Handle other HTTP exceptions
+                    _errorMessage.postValue("HttpException: ${e.message()}")
+                }
             } catch (e: Exception) {
                 // Handle other exceptions
                 _errorMessage.postValue("Exception: ${e.message}")
@@ -73,6 +80,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun getSession(): LiveData<UserModel> {
+        getCurrentUser()
+        getRecentUserHistory()
         return repository.getSession().asLiveData()
     }
 }

@@ -50,16 +50,8 @@ class TranslateActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.topAppBar.setNavigationOnClickListener {
-            val intent = Intent(this, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                        Intent.FLAG_ACTIVITY_NEW_TASK or
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-            finish()
+            onBackPressed()
         }
-
 
         binding.translate.setOnClickListener { uploadVideo() }
         binding.feedback.setOnClickListener { showFeedbackDialog(uploadResultId) }
@@ -136,6 +128,7 @@ class TranslateActivity : AppCompatActivity() {
 
 
     private fun observeUploadResult() {
+
         viewModel.uploadVideoResult.observe(this) { result ->
             showLoading(false)
             if (result != null) {
@@ -152,7 +145,7 @@ class TranslateActivity : AppCompatActivity() {
         viewModel.uploadError.observe(this) { isError ->
             if (isError) {
                 showLoading(false)
-                viewModel.uploadErrorMssg.observe(this) {errorMsg ->
+                viewModel.uploadErrorMssg.observe(this) { errorMsg ->
                     showToast(errorMsg)
                 }
             }
@@ -196,6 +189,18 @@ class TranslateActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                    Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        finish()
     }
 
 }

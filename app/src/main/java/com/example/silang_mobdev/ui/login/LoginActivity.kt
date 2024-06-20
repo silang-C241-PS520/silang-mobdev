@@ -81,7 +81,9 @@ class LoginActivity : AppCompatActivity() {
                 val loginResponse = apiService.login1(username, password)
                 val token = loginResponse.access_token
                 if (token != null) {
-                    viewModel.saveSession(UserModel(username, token))
+                    // Save the session with the token
+                    val userModel = UserModel(username, token, true)
+                    viewModel.saveSession(userModel)
                     showToast("Login successful!")
                     navigateToMainActivity()
                 } else {
@@ -99,13 +101,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    private fun handleGenericException(exception: Exception) {
-        showToast("An error occurred. Please try again.")
-        exception.printStackTrace()
-    }
-
     private fun navigateToMainActivity() {
-        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        val intent = Intent(this@LoginActivity, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                    Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
         startActivity(intent)
         finish()
     }

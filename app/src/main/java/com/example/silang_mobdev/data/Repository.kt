@@ -32,7 +32,6 @@ class Repository private constructor(
         userPreference.logout()
     }
 
-
     companion object {
         @Volatile
         private var INSTANCE: Repository? = null
@@ -46,3 +45,4 @@ class Repository private constructor(
         }
     }
 }
+
