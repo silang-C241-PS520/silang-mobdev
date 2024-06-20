@@ -2,17 +2,12 @@ package com.example.silang_mobdev.utils
 
 import android.content.ContentValues
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import androidx.core.content.FileProvider
-import com.arthenica.mobileffmpeg.FFmpeg
 import de.hdodenhof.circleimageview.BuildConfig
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -68,34 +63,34 @@ fun uriToFile(videoUri: Uri, context: Context): File {
     return myFile
 }
 
-fun File.reduceFileVideo(): File {
-    val inputFile = this
-    val outputFile = File(inputFile.parent, "compressed_${inputFile.name}")
-
-    try {
-        // Compress the video using FFmpeg
-        val command = arrayOf(
-            "-i", inputFile.path,
-            "-vf", "scale=640:-2", // Resize video to width 640px, keep aspect ratio
-            "-b:v", "1M", // Set video bitrate to 1M
-            "-c:a", "copy", // Copy audio codec
-            outputFile.path
-        )
-
-        val rc = FFmpeg.execute(command)
-        if (rc != 0) {
-            Log.e("FFmpeg", "Compression failed with return code $rc.")
-        }
-
-        // Check the size of the compressed video
-        if (outputFile.length() > MAX_VIDEO_SIZE_MB * 1024 * 1024) {
-            Log.e("VideoCompression", "Compressed video is still too large.")
-        } else {
-            Log.i("VideoCompression", "Video compressed successfully.")
-        }
-    } catch (e: Exception) {
-        Log.e("VideoCompression", "Compression failed.", e)
-    }
-
-    return outputFile
-}
+//fun File.reduceFileVideo(): File {
+//    val inputFile = this
+//    val outputFile = File(inputFile.parent, "compressed_${inputFile.name}")
+//
+//    try {
+//        // Compress the video using FFmpeg
+//        val command = arrayOf(
+//            "-i", inputFile.path,
+//            "-vf", "scale=640:-2", // Resize video to width 640px, keep aspect ratio
+//            "-b:v", "1M", // Set video bitrate to 1M
+//            "-c:a", "copy", // Copy audio codec
+//            outputFile.path
+//        )
+//
+//        val rc = FFmpeg.execute(command)
+//        if (rc != 0) {
+//            Log.e("FFmpeg", "Compression failed with return code $rc.")
+//        }
+//
+//        // Check the size of the compressed video
+//        if (outputFile.length() > MAX_VIDEO_SIZE_MB * 1024 * 1024) {
+//            Log.e("VideoCompression", "Compressed video is still too large.")
+//        } else {
+//            Log.i("VideoCompression", "Video compressed successfully.")
+//        }
+//    } catch (e: Exception) {
+//        Log.e("VideoCompression", "Compression failed.", e)
+//    }
+//
+//    return outputFile
+//}

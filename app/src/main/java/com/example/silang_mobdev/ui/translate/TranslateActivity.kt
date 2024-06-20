@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.net.Uri
@@ -19,11 +18,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.silang_mobdev.MainActivity
 import com.example.silang_mobdev.R
 import com.example.silang_mobdev.ViewModelFactory
 import com.example.silang_mobdev.databinding.ActivityTranslateBinding
-import com.example.silang_mobdev.utils.reduceFileVideo
 import com.example.silang_mobdev.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -110,7 +107,7 @@ class TranslateActivity : AppCompatActivity() {
     private fun uploadVideo() {
         showLoading(true)
         videoUri.let { uri ->
-            val videoFile = uriToFile(uri, this).reduceFileVideo()
+            val videoFile = uriToFile(uri, this)
             val requestVideoFile = videoFile.asRequestBody("video/mp4".toMediaType())
             val multipartBody = MultipartBody.Part.createFormData(
                 "file",
