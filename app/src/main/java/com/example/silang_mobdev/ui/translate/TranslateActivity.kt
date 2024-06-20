@@ -154,7 +154,7 @@ class TranslateActivity : AppCompatActivity() {
             val feedback = editTextFeedback.text.toString().trim()
             if (feedback.isNotEmpty()) {
                 viewModel.submitFeedback(resultId, feedback)
-                showToast("Feedback is submitted")
+                showAlert("Success","Feedback is submitted")
                 dialog.dismiss()
             } else {
                 showToast("Please enter your feedback")

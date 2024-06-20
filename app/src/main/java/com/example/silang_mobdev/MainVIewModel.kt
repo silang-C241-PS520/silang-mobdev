@@ -36,7 +36,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     val meResponse = apiService.me()
                     _meLiveData.postValue(meResponse)
                 } else {
-                    _errorMessage.postValue("Token not found, please login again.")
+                    // _errorMessage.postValue("Token not found, please login again.")
                 }
             } catch (e: HttpException) {
                 if (e.code() == 401) {
@@ -64,7 +64,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     val recentHistory = historyResponse.take(5)
                     _historyLiveData.postValue(recentHistory)
                 } else {
-                    _errorMessage.postValue("Token not found, please login again.")
+                    // _errorMessage.postValue("Token not found, please login again.")
                 }
             } catch (e: HttpException) {
                 // Handle HTTP exceptions
