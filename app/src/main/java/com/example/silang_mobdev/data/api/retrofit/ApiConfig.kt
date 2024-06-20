@@ -34,7 +34,7 @@ class ApiConfig {
             val client = clientBuilder.build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://silang-api-staging-nmw6skuooa-et.a.run.app")
+                .baseUrl("https://silang-api-nmw6skuooa-et.a.run.app/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
