@@ -19,18 +19,6 @@ class Repository private constructor(
     private val userPreference: UserPreference
 ) {
 
-    init {
-        runBlocking {
-            val user = userPreference.getUser().first()
-            if (user.token.isNotEmpty()) {
-                apiService = ApiConfig.getApiService(user.token)
-            }
-        }
-    }
-
-    suspend fun uploadVideo(video: MultipartBody.Part): TranslationResponse {
-        return apiService.uploadVideo(video)
-    }
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
     }
@@ -40,18 +28,8 @@ class Repository private constructor(
     }
 
     suspend fun logout() {
-        try {
-            val response = apiService.logout()
-            if (response.isSuccessful) {
-                userPreference.logout()
-            } else {
-                // Handle the case where the API call is not successful
-                Log.e("Logout", "API logout failed: ${response.errorBody()?.string()}")
-            }
-        } catch (e: Exception) {
-            // Handle the exception, log it, or notify the user
-            Log.e("Logout", "Logout failed", e)
-        }
+        apiService.logout()
+        userPreference.logout()
     }
 
 

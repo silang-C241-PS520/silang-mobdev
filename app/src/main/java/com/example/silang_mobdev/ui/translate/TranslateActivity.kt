@@ -99,7 +99,7 @@ class TranslateActivity : AppCompatActivity() {
 
         binding.videoNameTextView.text = videoName
         binding.videoDurationTextView.text = durationFormatted
-//        binding.videoSizeTextView.text = "$videoSizeMb MB"
+        "$videoSizeMb MB".also { binding.videoSizeTextView.text = it }
 
         retriever.release()
     }
@@ -120,8 +120,8 @@ class TranslateActivity : AppCompatActivity() {
         retriever.release()
     }
 
-    // Function to upload the video
     private fun uploadVideo() {
+        showLoading(true)
         videoUri.let { uri ->
             val videoFile = uriToFile(uri, this).reduceFileVideo()
             val requestVideoFile = videoFile.asRequestBody("video/mp4".toMediaType())
@@ -130,7 +130,6 @@ class TranslateActivity : AppCompatActivity() {
                 videoFile.name,
                 requestVideoFile
             )
-            showLoading(true)
             viewModel.uploadVideo(multipartBody)
         }
     }
@@ -153,7 +152,9 @@ class TranslateActivity : AppCompatActivity() {
         viewModel.uploadError.observe(this) { isError ->
             if (isError) {
                 showLoading(false)
-                showToast(getString(R.string.upload_failed))
+                viewModel.uploadErrorMssg.observe(this) {errorMsg ->
+                    showToast(errorMsg)
+                }
             }
         }
     }
@@ -172,6 +173,7 @@ class TranslateActivity : AppCompatActivity() {
             val feedback = editTextFeedback.text.toString().trim()
             if (feedback.isNotEmpty()) {
                 viewModel.submitFeedback(resultId, feedback)
+                showToast("Feedback is submitted")
                 dialog.dismiss()
             } else {
                 showToast("Please enter your feedback")

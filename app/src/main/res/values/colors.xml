@@ -21,8 +21,8 @@
     <color name="textSecondary">#B8B8B8</color> <!-- Medium Gray -->
     <color name="textTertiary">#FFFFFF</color> <!-- White -->
 
-    <color name="backgroundPrimary">#F1F1F1</color> <!-- White -->
-    <color name="backgroundSecondary">#F5F5F5</color> <!-- Light Gray -->
+    <color name="backgroundPrimary">#FCF5FD</color> <!-- White -->
+    <color name="backgroundSecondary">#F1ECF3</color> <!-- Light Gray -->
     <color name="backgroundTertiary">#E0E0E0</color> <!-- Medium Gray -->
 
     <color name="divider">#BDBDBD</color> <!-- Divider Gray -->
@@ -44,8 +44,8 @@
     <color name="textSecondaryDarkMode">#BDBDBD</color> <!-- Light Gray -->
     <color name="textTertiaryDarkMode">#000000</color> <!-- Black -->
 
-    <color name="backgroundPrimaryDarkMode">#121212</color> <!-- Dark Gray -->
-    <color name="backgroundSecondaryDarkMode">#212121</color> <!-- Darker Gray -->
+    <color name="backgroundPrimaryDarkMode">#141218</color> <!-- Dark Gray -->
+    <color name="backgroundSecondaryDarkMode">#2A2930</color> <!-- Darker Gray -->
     <color name="backgroundTertiaryDarkMode">#424242</color> <!-- Darkest Gray -->
 
     <color name="dividerDarkMode">#757575</color> <!-- Medium Gray -->
