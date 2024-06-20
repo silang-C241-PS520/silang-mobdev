@@ -133,15 +133,8 @@ class TranslateActivity : AppCompatActivity() {
                 showToast(getString(R.string.upload_success))
             } else {
                 binding.resultCardView.visibility = View.GONE
-                showToast(getString(R.string.upload_failed))
-            }
-        }
-
-        viewModel.uploadError.observe(this) { isError ->
-            if (isError) {
-                showLoading(false)
                 viewModel.uploadErrorMssg.observe(this) { errorMsg ->
-                    showToast(errorMsg)
+                    showAlert("Translation Failed",errorMsg)
                 }
             }
         }
@@ -186,16 +179,14 @@ class TranslateActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                    Intent.FLAG_ACTIVITY_NEW_TASK or
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        finish()
-    }
 
+    private fun showAlert(title: String, message: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            create()
+            show()
+        }
+    }
 }

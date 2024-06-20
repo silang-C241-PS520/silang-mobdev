@@ -86,10 +86,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        viewModel.isLoading.observe(this) {
-            showLoading(it)
-        }
-
     }
 
     private fun observeMe() {
@@ -159,7 +155,4 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
 }

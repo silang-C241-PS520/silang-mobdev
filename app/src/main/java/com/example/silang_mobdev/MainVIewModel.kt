@@ -23,10 +23,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val historyLiveData: LiveData<List<TranslationResponse>>
         get() = _historyLiveData
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
-
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
@@ -60,7 +56,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun getRecentUserHistory() {
         viewModelScope.launch {
-            _isLoading.value = true
             try {
                 val user = repository.getSession().first()
                 if (user.token.isNotEmpty()) {
@@ -68,18 +63,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     val historyResponse = apiService.currentUserHistory()
                     val recentHistory = historyResponse.take(5)
                     _historyLiveData.postValue(recentHistory)
-                    _isLoading.value = false
                 } else {
-                    _isLoading.value = false
                     _errorMessage.postValue("Token not found, please login again.")
                 }
             } catch (e: HttpException) {
-                _isLoading.value = false
                 // Handle HTTP exceptions
                 Log.e("MainViewModel", "HttpException: ${e.message()}")
                 _errorMessage.postValue("HttpException: ${e.message()}")
             } catch (e: Exception) {
-                _isLoading.value = false
                 // Handle other exceptions
                 Log.e("MainViewModel", "Exception: ${e.message}")
                 _errorMessage.postValue("Exception: ${e.message}")

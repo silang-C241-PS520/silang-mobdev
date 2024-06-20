@@ -78,7 +78,6 @@ class SingupActivity : AppCompatActivity() {
             val confirmPassword = binding.edRegisterConfirmPassword.text.toString().trim()
 
             if (isValidUsername(name) && isPasswordValid(password) && isConfirmPasswordValid(password, confirmPassword)) {
-                showAlert("Login button pressed", "The login button was pressed. You can now proceed with the login process.")
                 registerUser(name, password, confirmPassword)
             } else {
                 showToast("Please enter a valid username and password.")
@@ -110,18 +109,18 @@ class SingupActivity : AppCompatActivity() {
                     navigateToLoginActivity()
                 } else {
                     showLoading(false)
-                    showToast("Registration failed. Please try again.")
+                    showAlert("Registration Failed","Please try again.")
                 }
             } catch (e: HttpException) {
                 if (e.code() == 409) {
-                    showToast("Username already exists.")
+                    showAlert("Registration Failed","Username already exists.")
                 } else {
-                    showToast("Something went wrong. Please try again.")
+                    showAlert("Registration Failed","Something went wrong. Please try again.")
                 }
                 showLoading(false)
             } catch (e: Exception) {
                 showLoading(false)
-                showToast("An error occurred: ${e.message}")
+                showAlert("Error","An error occurred: ${e.message}")
             }
         }
     }

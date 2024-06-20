@@ -11,6 +11,7 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.silang_mobdev.MainActivity
@@ -73,6 +74,16 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun showAlert(title: String, message: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            create()
+            show()
+        }
+    }
+
     private fun performLogin(username: String, password: String) {
         lifecycleScope.launch {
             showLoading(true)
@@ -88,22 +99,20 @@ class LoginActivity : AppCompatActivity() {
                     navigateToMainActivity()
                 } else {
                     showLoading(false)
-                    showToast("Failed to retrieve token. Please try again.")
                 }
             } catch (e: HttpException) {
-                if (e.code() == 401) {
-                    showToast("Incorrect username or password.")
-                } else {
-                    showToast("Something went wrong. Please try again.")
-                }
                 showLoading(false)
+                if (e.code() == 401) {
+                    showAlert("Login Failed","Incorrect username or password.")
+                } else {
+                    showAlert("Login Failed","Something went wrong. Please try again.")
+                }
             } catch (e: Exception) {
                 showLoading(false)
-                showToast("An error occurred: ${e.message}")
+                showAlert("Error","An error occurred: ${e.message}")
             }
         }
     }
-
 
     private fun navigateToMainActivity() {
         val intent = Intent(this@LoginActivity, MainActivity::class.java).apply {
