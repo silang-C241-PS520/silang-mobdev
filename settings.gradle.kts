@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "silang-mobdev"
+rootProject.name = "SILANG"
 include(":app")
  
