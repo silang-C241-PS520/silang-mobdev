@@ -19,22 +19,29 @@ class HistoryViewModel(private val repository: Repository) : ViewModel() {
     }
     val text: LiveData<String> = _text
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
     private val _historyLiveData = MutableLiveData<List<TranslationResponse>>()
     val historyLiveData: LiveData<List<TranslationResponse>>
         get() = _historyLiveData
 
     fun getUserHistory() {
         viewModelScope.launch {
+            _isLoading.value = true
             try {
                 val user = repository.getSession().first()
                 val apiService = ApiConfig.getApiService(user.token)
                 val historyResponse = apiService.currentUserHistory()
                 // Take only the 5 most recent items
                 _historyLiveData.postValue(historyResponse)
+                _isLoading.value = false
             } catch (e: HttpException) {
+                _isLoading.value = false
                 // Handle HTTP exceptions
                 Log.e("MainViewModel", "HttpException: ${e.message()}")
             } catch (e: Exception) {
+                _isLoading.value = false
                 // Handle other exceptions
                 Log.e("MainViewModel", "Exception: ${e.message}")
             }

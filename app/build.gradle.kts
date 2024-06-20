@@ -66,5 +66,4 @@ dependencies {
     implementation("com.arthenica:mobile-ffmpeg-full:4.4")
 
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-
 }

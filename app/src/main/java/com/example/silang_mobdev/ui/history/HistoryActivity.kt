@@ -3,6 +3,7 @@ package com.example.silang_mobdev.ui.history
 import HistoryAdapter
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,13 @@ class HistoryActivity : AppCompatActivity() {
         viewModel.historyLiveData.observe(this) { historyList ->
             historyAdapter.submitList(historyList)
         }
+
+        viewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
 }
