@@ -3,21 +3,20 @@ package com.example.silang_mobdev.ui.singup
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.silang_mobdev.R
 import com.example.silang_mobdev.data.api.request.RegisterRequest
-import com.example.silang_mobdev.data.api.response.RegisterResponse
 import com.example.silang_mobdev.data.api.retrofit.ApiConfig
 import com.example.silang_mobdev.databinding.ActivitySingupBinding
 import com.example.silang_mobdev.ui.login.LoginActivity
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -63,9 +62,6 @@ class SingupActivity : AppCompatActivity() {
         return name.length >= 8
     }
 
-    private fun isValidEmail(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
 
     private fun isPasswordValid(password: String): Boolean {
         return password.length >= 8
@@ -75,7 +71,6 @@ class SingupActivity : AppCompatActivity() {
         return password == confirmPassword
     }
 
-
     private fun setupAction() {
         binding.signupButton.setOnClickListener {
             val name = binding.edRegisterName.text.toString().trim()
@@ -83,6 +78,7 @@ class SingupActivity : AppCompatActivity() {
             val confirmPassword = binding.edRegisterConfirmPassword.text.toString().trim()
 
             if (isValidUsername(name) && isPasswordValid(password) && isConfirmPasswordValid(password, confirmPassword)) {
+                showAlert("Login button pressed", "The login button was pressed. You can now proceed with the login process.")
                 registerUser(name, password, confirmPassword)
             } else {
                 showToast("Please enter a valid username and password.")
@@ -91,6 +87,16 @@ class SingupActivity : AppCompatActivity() {
 
         binding.tvToLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
+        }
+    }
+
+    private fun showAlert(title: String, message: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            create()
+            show()
         }
     }
 
@@ -128,21 +134,13 @@ class SingupActivity : AppCompatActivity() {
     }
 
     private fun playAnimation() {
-
-        val nameTextView =
-            ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
-        val nameEditTextLayout =
-            ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val emailTextView =
-            ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
-        val emailEditTextLayout =
-            ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val passwordTextView =
-            ObjectAnimator.ofFloat(binding.confirmPasswordTextView, View.ALPHA, 1f).setDuration(100)
-        val passwordEditTextLayout =
-            ObjectAnimator.ofFloat(binding.confirmPasswordEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val nameTextView = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
+        val nameEditTextLayout = ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val emailTextView = ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
+        val emailEditTextLayout = ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val passwordTextView = ObjectAnimator.ofFloat(binding.confirmPasswordTextView, View.ALPHA, 1f).setDuration(100)
+        val passwordEditTextLayout = ObjectAnimator.ofFloat(binding.confirmPasswordEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val signup = ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 1f).setDuration(100)
-
 
         AnimatorSet().apply {
             playSequentially(
